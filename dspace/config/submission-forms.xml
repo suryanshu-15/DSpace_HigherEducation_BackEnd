@@ -51,16 +51,17 @@
         <!-- Form which defines the first page/section of the "traditional" DSpace submission process,
              often used when depositing normal Items (i.e. Items which are not Entities). -->
         <form name="traditionalpageone">
+
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>contributor</dc-element>
                     <dc-qualifier>author</dc-qualifier>
                     <repeatable>true</repeatable>
-                    <label>Author</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the author's name (Family name, Given names).</hint>
-                    <required></required>
+                    <label>Department</label>
+                    <input-type value-pairs-name="department_type">dropdown</input-type>
+                    <hint>Give the respective Department Name</hint>
+                    <required>You must enter the specific department</required>
                 </field>
             </row>
             <row>
@@ -69,9 +70,9 @@
                     <dc-element>title</dc-element>
                     <dc-qualifier></dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Title</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the main title of the item.</hint>
+                    <label>Section</label>
+                    <input-type value-pairs-name="section_type">dropdown</input-type>
+                    <hint>Select the Section.</hint>
                     <required>You must enter a main title for this item.</required>
                 </field>
             </row>
@@ -81,79 +82,80 @@
                     <dc-element>title</dc-element>
                     <dc-qualifier>alternative</dc-qualifier>
                     <repeatable>true</repeatable>
-                    <label>Other Titles</label>
+                    <label>File Number</label>
                     <input-type>onebox</input-type>
-                    <hint>If the item has any alternative titles, please enter them here.</hint>
-                    <required></required>
+                    <hint>Give the file number</hint>
+                    <required> You must give a file number</required>
                 </field>
             </row>
             <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>date</dc-element>
-                    <dc-qualifier>issued</dc-qualifier>
-                    <repeatable>false</repeatable>
-                    <label>Date of Issue</label>
-                    <style>col-sm-4</style>
-                    <input-type>date</input-type>
-                    <hint>Please give the date of previous publication or public distribution.
-                        You can leave out the day and/or month if they aren't applicable.
-                    </hint>
-                    <required>You must enter at least the year.</required>
-                </field>
-
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>publisher</dc-element>
                     <dc-qualifier></dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Publisher</label>
-                    <style>col-sm-8</style>
+                    <label>File Name</label>
                     <input-type>onebox</input-type>
-                    <hint>Enter the name of the publisher of the previously issued instance of this item.</hint>
-                    <required></required>
+                    <hint>Enter the file name.</hint>
+                    <required>You must provide a file name</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>date</dc-element>
+                    <dc-qualifier>issued</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>File Year</label>
+                    <input-type>date</input-type>
+                    <hint>Please give the date of the file is created.</hint>
                 </field>
             </row>
+            <!-- Respondent -->
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
-                    <dc-element>identifier</dc-element>
-                    <dc-qualifier>citation</dc-qualifier>
+                    <dc-element>identifier.citation</dc-element>
                     <repeatable>false</repeatable>
-                    <label>Citation</label>
+                    <label>Respondent</label>
                     <input-type>onebox</input-type>
-                    <hint>Enter the standard citation for the previously issued instance of this item.</hint>
-                    <required></required>
+                    <hint>Enter the respondent name.</hint>
                 </field>
             </row>
+            <!-- case number -->
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>relation</dc-element>
                     <dc-qualifier>ispartofseries</dc-qualifier>
                     <repeatable>true</repeatable>
-                    <label>Series/Report No.</label>
-                    <input-type>series</input-type>
-                    <hint>Enter the series and number assigned to this item by your community.</hint>
-                    <required></required>
+                    <label>Case Number</label>
+                    <input-type>onebox</input-type>
+                    <hint>Enter the unique case number</hint>
                 </field>
             </row>
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
-                    <dc-element>identifier</dc-element>
-                    <dc-qualifier></dc-qualifier>
-                    <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
-                    <repeatable>true</repeatable>
-                    <label>Identifiers</label>
-                    <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
-                    <hint>If the item has any identification numbers or codes associated with
-                        it, please enter the types and the actual numbers or codes.
-                    </hint>
+                    <dc-element>complient</dc-element>
+                    <repeatable>false</repeatable>
+                    <label>Complient</label>
+                    <input-type>onebox</input-type>
+                    <hint>Enter the complient name</hint>
                     <required></required>
                 </field>
             </row>
-            <row>
+            <!-- logo -->
+            <!-- <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>identifier</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Logo</label>
+                    <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
+                    <required></required>
+                </field>
+            </row> -->
+            <!-- <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>type</dc-element>
@@ -165,8 +167,8 @@
                     </hint>
                     <required>You must choose at least one type.</required>
                 </field>
-            </row>
-            <row>
+            </row> -->
+            <!-- <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>language</dc-element>
@@ -180,7 +182,7 @@
                     </hint>
                     <required></required>
                 </field>
-            </row>
+            </row> -->
         </form>
 
         <!-- Form which defines the second page/section of the "traditional" DSpace submission process,
@@ -191,7 +193,6 @@
                     <dc-schema>dc</dc-schema>
                     <dc-element>subject</dc-element>
                     <dc-qualifier></dc-qualifier>
-                    <!-- An input-type of tag MUST be marked as repeatable -->
                     <repeatable>true</repeatable>
                     <label>Subject Keywords</label>
                     <input-type>tag</input-type>
@@ -443,16 +444,16 @@
                     <hint>Enter the birth date of the person</hint>
                 </field>
             </row>
-<!--            <row>-->
-<!--                <field>-->
-<!--                    <dc-schema>person</dc-schema>-->
-<!--                    <dc-element>identifier</dc-element>-->
-<!--                    <dc-qualifier>staffid</dc-qualifier>-->
-<!--                    <label>Staff ID</label>-->
-<!--                    <input-type>onebox</input-type>-->
-<!--                    <hint>Enter the staff id of the person</hint>-->
-<!--                </field>-->
-<!--            </row>-->
+            <!--            <row>-->
+            <!--                <field>-->
+            <!--                    <dc-schema>person</dc-schema>-->
+            <!--                    <dc-element>identifier</dc-element>-->
+            <!--                    <dc-qualifier>staffid</dc-qualifier>-->
+            <!--                    <label>Staff ID</label>-->
+            <!--                    <input-type>onebox</input-type>-->
+            <!--                    <hint>Enter the staff id of the person</hint>-->
+            <!--                </field>-->
+            <!--            </row>-->
             <row>
                 <field>
                     <dc-schema>person</dc-schema>
@@ -484,36 +485,36 @@
                     <hint>Enter the id of the project</hint>
                 </field>
             </row>
-<!--            <row>-->
-<!--                <field>-->
-<!--                    <dc-schema>project</dc-schema>-->
-<!--                    <dc-element>identifier</dc-element>-->
-<!--                    <dc-qualifier>status</dc-qualifier>-->
-<!--                    <label>Status</label>-->
-<!--                    <input-type value-pairs-name="project_status">dropdown</input-type>-->
-<!--                    <hint>Enter the status of the project</hint>-->
-<!--                </field>-->
-<!--            </row>-->
-<!--            <row>-->
-<!--                <field>-->
-<!--                    <dc-schema>project</dc-schema>-->
-<!--                    <dc-element>identifier</dc-element>-->
-<!--                    <dc-qualifier>startdate</dc-qualifier>-->
-<!--                    <label>Start date</label>-->
-<!--                    <input-type>date</input-type>-->
-<!--                    <hint>Enter the start date of the project</hint>-->
-<!--                </field>-->
-<!--            </row>-->
-<!--            <row>-->
-<!--                <field>-->
-<!--                    <dc-schema>project</dc-schema>-->
-<!--                    <dc-element>identifier</dc-element>-->
-<!--                    <dc-qualifier>expectedcompletion</dc-qualifier>-->
-<!--                    <label>Expected Completion</label>-->
-<!--                    <input-type>date</input-type>-->
-<!--                    <hint>Enter the expected completion date of the project</hint>-->
-<!--                </field>-->
-<!--            </row>-->
+            <!--            <row>-->
+            <!--                <field>-->
+            <!--                    <dc-schema>project</dc-schema>-->
+            <!--                    <dc-element>identifier</dc-element>-->
+            <!--                    <dc-qualifier>status</dc-qualifier>-->
+            <!--                    <label>Status</label>-->
+            <!--                    <input-type value-pairs-name="project_status">dropdown</input-type>-->
+            <!--                    <hint>Enter the status of the project</hint>-->
+            <!--                </field>-->
+            <!--            </row>-->
+            <!--            <row>-->
+            <!--                <field>-->
+            <!--                    <dc-schema>project</dc-schema>-->
+            <!--                    <dc-element>identifier</dc-element>-->
+            <!--                    <dc-qualifier>startdate</dc-qualifier>-->
+            <!--                    <label>Start date</label>-->
+            <!--                    <input-type>date</input-type>-->
+            <!--                    <hint>Enter the start date of the project</hint>-->
+            <!--                </field>-->
+            <!--            </row>-->
+            <!--            <row>-->
+            <!--                <field>-->
+            <!--                    <dc-schema>project</dc-schema>-->
+            <!--                    <dc-element>identifier</dc-element>-->
+            <!--                    <dc-qualifier>expectedcompletion</dc-qualifier>-->
+            <!--                    <label>Expected Completion</label>-->
+            <!--                    <input-type>date</input-type>-->
+            <!--                    <hint>Enter the expected completion date of the project</hint>-->
+            <!--                </field>-->
+            <!--            </row>-->
             <row>
                 <relation-field>
                     <relationship-type>isPersonOfProject</relationship-type>
@@ -1368,6 +1369,204 @@
                 <stored-value>isbn</stored-value>
             </pair>
         </value-pairs>
+        <value-pairs value-pairs-name="department_type" dc-term="type">
+            <pair>
+                <displayed-value>Higher education department </displayed-value>
+                <stored-value>Higher education department </stored-value>
+            </pair>
+            <pair>
+                <displayed-value>Odisha state higher education council</displayed-value>
+                <stored-value>Odisha state higher education council</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>Ama gourab ama college</displayed-value>
+                <stored-value>Ama gourab ama college</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="section_type" dc-term="type">
+            <pair>
+                <displayed-value>UNIVERSITY ESTABLISHMENT (UE)</displayed-value>
+                <stored-value>UE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>UNIVERSITY NON-ESTABLISHMENT (UNE)</displayed-value>
+                <stored-value>UNE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GOVERNMENT COLLEGE ESTABLISHMENT (TEACHING)-A (GCET-A)</displayed-value>
+                <stored-value>GCET-A</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GOVERNMENT COLLEGE ESTABLISHMENT (TEACHING)-B (GCET-B)</displayed-value>
+                <stored-value>GCET-B</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GOVERNMENT COLLEGE NON-ESTABLISHMENT (GCNE)</displayed-value>
+                <stored-value>GCNE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>FIELD ESTABLISHMENT (FE)</displayed-value>
+                <stored-value>FE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NON-GOVERNMENT COLLEGE ESTABLISHMENT (TEACHING)-1 (NCET-I)</displayed-value>
+                <stored-value>NCET-I</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GRANT-IN-AID-I (GIA-I)</displayed-value>
+                <stored-value>GIA-I</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OFFICE ESTABLISHMENT-I (OE-I)</displayed-value>
+                <stored-value>OE-I</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OFFICE ESTABLISHMENT-III (OE-III)</displayed-value>
+                <stored-value>OE-III</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>MISCELLANEOUS and COORDINATION (M and C)</displayed-value>
+                <stored-value>MNC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>SCHOLARSHIP, LOAN AND RECOVERY (SLandR)</displayed-value>
+                <stored-value>SLR</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>BUDGET AND FINANCE (BandF)</displayed-value>
+                <stored-value>BF</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>ACCOUNTS-I</displayed-value>
+                <stored-value>ACCOUNTS-I</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NATIONAL SERVICE SCHEME (NSS)</displayed-value>
+                <stored-value>NSS</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>SCHEME</displayed-value>
+                <stored-value>SCHEME</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>INFORMATION TECHNOLOGY AND EMERGING TECHNOLOGY (IT and ET)</displayed-value>
+                <stored-value>ITET</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>PERMISSION AND RECOGNATION (PR)</displayed-value>
+                <stored-value>PR</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>PERFORMANCE TRACKING CELL (PTC)</displayed-value>
+                <stored-value>PTC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>LEGAL SECTION</displayed-value>
+                <stored-value>LEGALSECTION</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>AUDIT</displayed-value>
+                <stored-value>AUDIT</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>TEACHERS' EDUCATION, TRAINING AND SKILLING</displayed-value>
+                <stored-value>TETS</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>RIGHT TO INFORMATION (RTI)</displayed-value>
+                <stored-value>RTI</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>COMMUNICATION AND PUBLIC RELATION (COMMUNICATION and PR)</displayed-value>
+                <stored-value>CPR</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>ISSUE</displayed-value>
+                <stored-value>ISSUE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>DIARY</displayed-value>
+                <stored-value>DIARY</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>LEGAL CELL</displayed-value>
+                <stored-value>LEGALCELL</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>ENGINEERING CELL</displayed-value>
+                <stored-value>ENGINEERINGCELL</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NATIONAL EDUCATION POLICY (NEP) CELL</displayed-value>
+                <stored-value>NEPCELL</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OFFICE OF THE COMMISSIONER-CUM-SECRETARY</displayed-value>
+                <stored-value>OCCS</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NON-GOVERNMENT COLLEGE ESTABLISHMENT (NON-TEACHING)-A (NCENT-A)</displayed-value>
+                <stored-value>NCENT-A</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NON-GOVERNMENT COLLEGE ESTABLISHMENT (NON-TEACHING)-B (NCENT-B)</displayed-value>
+                <stored-value>NCENT-B</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NON-GOVERNMENT COLLEGE ESTABLISHMENT (TEACHING)-II (NCET-II)</displayed-value>
+                <stored-value>NCET-II</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NON-GOVERNMENT COLLEGE NON-ESTABLISHMENT (NCNE)</displayed-value>
+                <stored-value>NCNE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OFFICE ESTABLISHMENT-II (OE-II)</displayed-value>
+                <stored-value>OE-II</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GRANT-IN-AID-II (A) (GIA-II(A))</displayed-value>
+                <stored-value>GIA-IIA</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GRANT-IN-AID-II (B) (GIA-II (B))</displayed-value>
+                <stored-value>GIA-IIB</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GRANT-IN-AID-III (GIA-III)</displayed-value>
+                <stored-value>GIA-III</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>NATIONAL CADET CORPS (NCC)</displayed-value>
+                <stored-value>NCC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>ACCOUNTS-II</displayed-value>
+                <stored-value>ACCOUNTS-II</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GOVERNMENT COLLEGE ESTABLISHMENT (NON-TEACHING)-A (GCENT-A)</displayed-value>
+                <stored-value>GCENT-A</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GOVERNMENT COLLEGE ESTABLISHMENT (NON-TEACHING)-B (GCENT-B)</displayed-value>
+                <stored-value>GCENT-B</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OLD SCHOLARSIP, LOAN AND RECOVERY SECTION</displayed-value>
+                <stored-value>OLD-SLR</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OFFICE OF THE DIRECTOR</displayed-value>
+                <stored-value>DIRECTOROFFICE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>Others</displayed-value>
+                <stored-value>Others</stored-value>
+            </pair>
+
+        </value-pairs>
+
 
         <value-pairs value-pairs-name="common_types" dc-term="type">
             <pair>

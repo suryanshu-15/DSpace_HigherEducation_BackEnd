@@ -683,12 +683,12 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
+            <version>11.7.2</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
-            <version>${flyway.version}</version>
+            <version>11.7.2</version>
         </dependency>
 
         <!-- FindBugs -->
@@ -912,6 +912,7 @@
             <artifactId>aws-s3</artifactId>
             <version>${jclouds.version}</version>
         </dependency>
+
 
         <!-- required frontpage generation -->
         <dependency>

@@ -612,4 +612,57 @@
         <scope_note>The OpenAlex identifier</scope_note>
     </dc-type>
 
+    <!-- institute metadata -->
+    <dc-type>
+        <schema>dc</schema>
+        <element>department</element>
+        <qualifier>name</qualifier>
+        <scope_note>The Department Name</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>section</element>
+        <scope_note>The section name</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>filenumber</element>
+        <scope_note>File number</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>complient</element>
+        <scope_note>Complient Name</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>filename</element>
+        <scope_note>File name</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>fileyear</element>
+        <scope_note>The submission date of file</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>respondent</element>
+        <scope_note>The respondent which i soptional to put</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>complient</element>
+        <scope_note>The respondent which i soptional to put</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>casenumber</element>
+        <scope_note>the perticular casenumber for the file</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>logo</element>
+        <scope_note>the logo of the file</scope_note>
+    </dc-type>
+
 </dspace-dc-types>
