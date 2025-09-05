@@ -92,13 +92,14 @@
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>publisher</dc-element>
-                    <dc-qualifier></dc-qualifier>
                     <repeatable>false</repeatable>
                     <label>File Name</label>
                     <input-type>onebox</input-type>
                     <hint>Enter the file name.</hint>
                     <required>You must provide a file name</required>
                 </field>
+            </row>
+            <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>date</dc-element>
@@ -107,17 +108,6 @@
                     <label>File Year</label>
                     <input-type>date</input-type>
                     <hint>Please give the date of the file is created.</hint>
-                </field>
-            </row>
-            <!-- Respondent -->
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>identifier.citation</dc-element>
-                    <repeatable>false</repeatable>
-                    <label>Respondent</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the respondent name.</hint>
                 </field>
             </row>
             <!-- case number -->
@@ -132,57 +122,29 @@
                     <hint>Enter the unique case number</hint>
                 </field>
             </row>
+            <!-- Respondent -->
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
-                    <dc-element>complient</dc-element>
+                    <dc-element>identifier.citation</dc-element>
                     <repeatable>false</repeatable>
-                    <label>Complient</label>
+                    <label>Respondent</label>
                     <input-type>onebox</input-type>
-                    <hint>Enter the complient name</hint>
-                    <required></required>
+                    <hint>Enter the respondent name.</hint>
                 </field>
             </row>
-            <!-- logo -->
-            <!-- <row>
+            <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>identifier</dc-element>
-                    <dc-qualifier></dc-qualifier>
-                    <repeatable>true</repeatable>
-                    <label>Logo</label>
-                    <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
-                    <required></required>
-                </field>
-            </row> -->
-            <!-- <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>type</dc-element>
-                    <dc-qualifier></dc-qualifier>
-                    <repeatable>true</repeatable>
-                    <label>Type</label>
-                    <input-type value-pairs-name="common_types">dropdown</input-type>
-                    <hint>Select the type of content of the item.
-                    </hint>
-                    <required>You must choose at least one type.</required>
-                </field>
-            </row> -->
-            <!-- <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>language</dc-element>
-                    <dc-qualifier>iso</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Language</label>
-                    <input-type value-pairs-name="common_iso_languages">dropdown</input-type>
-                    <hint>Select the language of the main content of the item. If the language does not appear in the
-                        list, please select 'Other'. If the content does not really have a language (for example, if it
-                        is a dataset or an image) please select 'N/A'.
-                    </hint>
-                    <required></required>
+                    <label>Petitioner</label>
+                    <input-type>onebox</input-type>
+                    <hint>Enter the petitioner name</hint>
+                    <required>petitioner name is mandatory</required>
                 </field>
-            </row> -->
+            </row>
+
         </form>
 
         <!-- Form which defines the second page/section of the "traditional" DSpace submission process,

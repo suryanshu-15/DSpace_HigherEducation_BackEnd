@@ -283,7 +283,7 @@
             <!--<step id="identifiers"/>-->
             <!--Step will be to Describe the item. -->
             <step id="traditionalpageone"/>
-            <step id="traditionalpagetwo"/>
+            <!-- <step id="traditionalpagetwo"/> -->
 
             <!-- Uncomment this step to allow the user to embargo or access restrict the entire item -->
             <!-- <step id="itemAccessConditions"/> -->
@@ -308,7 +308,7 @@
             <!-- <step id="cclicense"/> -->
 
             <!--Step will be to Sign off on the required DSpace License agreement -->
-            <step id="license"/>
+            <!-- <step id="license"/> -->
         </submission-process>
 
         <!--
