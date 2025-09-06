@@ -73,7 +73,6 @@
                     <label>Section</label>
                     <input-type value-pairs-name="section_type">dropdown</input-type>
                     <hint>Select the Section.</hint>
-                    <required>You must enter a main title for this item.</required>
                 </field>
             </row>
             <row>
