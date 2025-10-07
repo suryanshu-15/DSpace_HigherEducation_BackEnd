@@ -321,6 +321,7 @@ public class DuplicateDetectionRestIT extends AbstractControllerIntegrationTest 
                 .withAuthor(item1Author)
                 .withSubmitter(eperson)
                 .build();
+        System.out.println("workspaceItem id: " + workspaceItem.getID());
         WorkspaceItem workspaceItem2 = WorkspaceItemBuilder.createWorkspaceItem(context, col)
                 .withTitle("Unique title")
                 .withSubject(item2Subject)
@@ -335,6 +336,7 @@ public class DuplicateDetectionRestIT extends AbstractControllerIntegrationTest 
                 .withAuthor("asdfasf")
                 .withSubmitter(admin)
                 .build();
+        System.out.println("workspaceItem3 id: " + workspaceItem3.getID());
         String submitterToken = getAuthToken(eperson.getEmail(), password);
 
         context.restoreAuthSystemState();
