@@ -52,19 +52,45 @@
              often used when depositing normal Items (i.e. Items which are not Entities). -->
         <form name="traditionalpageone">
 
-            <row>
+            <!-- <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>contributor</dc-element>
                     <dc-qualifier>author</dc-qualifier>
                     <repeatable>true</repeatable>
-                    <label>Department</label>
+                    <label>Section/Institution</label>
                     <input-type value-pairs-name="department_type">dropdown</input-type>
                     <hint>Give the respective Department Name</hint>
                     <required>You must enter the specific department</required>
                 </field>
-            </row>
-            <row>
+            </row> -->
+            <!-- District -->
+<field>
+    <dc-schema>dc</dc-schema> 
+    <dc-element>coverage</dc-element>
+    <dc-qualifier>district</dc-qualifier>
+    <label>District</label>
+    <input-type>onebox</input-type>
+</field>
+
+<!-- College -->
+<field>
+    <dc-schema>dc</dc-schema>
+    <dc-element>relation</dc-element>
+    <dc-qualifier>college</dc-qualifier>
+    <label>College</label>
+    <input-type>onebox</input-type>
+</field>
+
+<!-- University -->
+<field>
+    <dc-schema>dc</dc-schema>
+    <dc-element>relation</dc-element>
+    <dc-qualifier>university</dc-qualifier>
+    <label>University</label>
+    <input-type>onebox</input-type>
+</field>
+            <!-- <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>title</dc-element>
@@ -74,7 +100,7 @@
                     <input-type value-pairs-name="section_type">dropdown</input-type>
                     <hint>Select the Section.</hint>
                 </field>
-            </row>
+            </row> -->
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
@@ -2122,6 +2148,75 @@
                 <stored-value>FundingOrganization</stored-value>
             </pair>
         </value-pairs>
+
+        <value-pairs value-pairs-name="section_type" dc-term="type">
+
+    <pair><displayed-value>Office of Minister</displayed-value><stored-value>OM</stored-value></pair>
+    <pair><displayed-value>Office of Secretary</displayed-value><stored-value>OS</stored-value></pair>
+    <pair><displayed-value>Office of Special Secretary</displayed-value><stored-value>OSS</stored-value></pair>
+    <pair><displayed-value>Office of Additional Secretary</displayed-value><stored-value>OAS</stored-value></pair>
+
+    <pair><displayed-value>Accounts-I</displayed-value><stored-value>ACC1</stored-value></pair>
+    <pair><displayed-value>Accounts-II</displayed-value><stored-value>ACC2</stored-value></pair>
+    <pair><displayed-value>Audit</displayed-value><stored-value>AUD</stored-value></pair>
+    <pair><displayed-value>Budget &amp; Finance</displayed-value><stored-value>BF</stored-value></pair>
+
+    <pair><displayed-value>Communication &amp; PR Cell</displayed-value><stored-value>CPR</stored-value></pair>
+    <pair><displayed-value>Diary</displayed-value><stored-value>DRY</stored-value></pair>
+    <pair><displayed-value>Edu-Invest Cell</displayed-value><stored-value>EIC</stored-value></pair>
+    <pair><displayed-value>Engineering Cell</displayed-value><stored-value>ENG</stored-value></pair>
+
+    <pair><displayed-value>Government College Establishment (Teaching)</displayed-value><stored-value>GCET</stored-value></pair>
+    <pair><displayed-value>Government College Establishment (Non-Teaching)</displayed-value><stored-value>GCENT</stored-value></pair>
+
+    <pair><displayed-value>Grant-in-Aid-I</displayed-value><stored-value>GIA1</stored-value></pair>
+    <pair><displayed-value>Grant-in-Aid-II</displayed-value><stored-value>GIA2</stored-value></pair>
+    <pair><displayed-value>Grant-in-Aid-III</displayed-value><stored-value>GIA3</stored-value></pair>
+
+    <pair><displayed-value>Information Technology</displayed-value><stored-value>IT</stored-value></pair>
+    <pair><displayed-value>Legal</displayed-value><stored-value>LEGAL</stored-value></pair>
+    <pair><displayed-value>NCC</displayed-value><stored-value>NCC</stored-value></pair>
+    <pair><displayed-value>NSS</displayed-value><stored-value>NSS</stored-value></pair>
+    <pair><displayed-value>NEP Cell</displayed-value><stored-value>NEP</stored-value></pair>
+
+    <pair><displayed-value>Scholarship &amp; Loan</displayed-value><stored-value>SCH</stored-value></pair>
+    <pair><displayed-value>Teacher Education &amp; Training</displayed-value><stored-value>TET</stored-value></pair>
+
+    <pair><displayed-value>University Establishment</displayed-value><stored-value>UE</stored-value></pair>
+    <pair><displayed-value>University Non-Establishment</displayed-value><stored-value>UNE</stored-value></pair>
+
+</value-pairs>
+
+<value-pairs value-pairs-name="college_type" dc-term="type">
+
+    <pair><displayed-value>Government College</displayed-value><stored-value>GC</stored-value></pair>
+    <pair><displayed-value>Non-Government Aided College (488 Category)</displayed-value><stored-value>NGC_488</stored-value></pair>
+    <pair><displayed-value>Non-Government Aided College (662 Category)</displayed-value><stored-value>NGC_662</stored-value></pair>
+    <pair><displayed-value>Sanskrit College</displayed-value><stored-value>SC</stored-value></pair>
+    <pair><displayed-value>Private / Un-Aided College</displayed-value><stored-value>PRIVATE</stored-value></pair>
+
+</value-pairs>
+
+<value-pairs value-pairs-name="university_type" dc-term="type">
+
+    <pair><displayed-value>State Public University</displayed-value><stored-value>SPU</stored-value></pair>
+    <pair><displayed-value>Private University</displayed-value><stored-value>PU</stored-value></pair>
+    <pair><displayed-value>Central University</displayed-value><stored-value>CU</stored-value></pair>
+
+</value-pairs>
+
+<value-pairs value-pairs-name="district" dc-term="coverage">
+
+    <pair><displayed-value>Angul</displayed-value><stored-value>ANG</stored-value></pair>
+    <pair><displayed-value>Balasore</displayed-value><stored-value>BLS</stored-value></pair>
+    <pair><displayed-value>Cuttack</displayed-value><stored-value>CTC</stored-value></pair>
+    <pair><displayed-value>Khurda</displayed-value><stored-value>KHD</stored-value></pair>
+    <pair><displayed-value>Sambalpur</displayed-value><stored-value>SBP</stored-value></pair>
+    <pair><displayed-value>Puri</displayed-value><stored-value>PRI</stored-value></pair>
+    <pair><displayed-value>Mayurbhanj</displayed-value><stored-value>MYB</stored-value></pair>
+    <pair><displayed-value>Ganjam</displayed-value><stored-value>GNJ</stored-value></pair>
+
+</value-pairs>
 
     </form-value-pairs>
 

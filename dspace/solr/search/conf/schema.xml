@@ -152,6 +152,18 @@
                             <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
                      </analyzer>
               </fieldType>
+              <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+</fieldType>
        </types>
        <fields>
               <field name="_version_" type="long" indexed="true" stored="true" multiValued="false" />
