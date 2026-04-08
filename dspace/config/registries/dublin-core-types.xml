@@ -664,5 +664,108 @@
         <element>logo</element>
         <scope_note>the logo of the file</scope_note>
     </dc-type>
+    <!-- HED metadata -->
+
+    <!-- Barcode Number -->
+<dc-type>
+    <schema>dc</schema>
+    <element>barcode</element>
+    <scope_note>Barcode number of the file</scope_note>
+</dc-type>
+
+<!-- File Number -->
+<dc-type>
+    <schema>dc</schema>
+    <element>filenumber</element>
+    <scope_note>File number of the case</scope_note>
+</dc-type>
+
+<!-- File Name -->
+<dc-type>
+    <schema>dc</schema>
+    <element>file</element>
+    <qualifier>name</qualifier>
+    <scope_note>Name of the file</scope_note>
+</dc-type>
+
+<!-- File Year -->
+<dc-type>
+    <schema>dc</schema>
+    <element>file</element>
+    <qualifier>year</qualifier>
+    <scope_note>Year of the file submission</scope_note>
+</dc-type>
+
+<!-- Case Nature -->
+<dc-type>
+    <schema>dc</schema>
+    <element>case</element>
+    <qualifier>nature</qualifier>
+    <scope_note>Nature of the case</scope_note>
+</dc-type>
+
+<!-- Case Number -->
+<dc-type>
+    <schema>dc</schema>
+    <element>case</element>
+    <qualifier>number</qualifier>
+    <scope_note>Case number of the file</scope_note>
+</dc-type>
+
+<!-- Subject Matter -->
+<dc-type>
+    <schema>dc</schema>
+    <element>subject</element>
+    <qualifier>matter</qualifier>
+    <scope_note>Subject matter of the case</scope_note>
+</dc-type>
+
+<!-- Petitioner -->
+<dc-type>
+    <schema>dc</schema>
+    <element>petitioner</element>
+    <scope_note>Name of the petitioner</scope_note>
+</dc-type>
+
+<!-- District -->
+<dc-type>
+    <schema>dc</schema>
+    <element>district</element>
+    <scope_note>Name of the district</scope_note>
+</dc-type>
+
+<!-- Institution -->
+<dc-type>
+    <schema>dc</schema>
+    <element>institution</element>
+    <scope_note>Name of the institution</scope_note>
+</dc-type>
+
+<!-- Respondent -->
+<dc-type>
+    <schema>dc</schema>
+    <element>respondent</element>
+    <scope_note>Name of the respondent</scope_note>
+</dc-type>
+<dc-type>
+    <schema>dc</schema>
+    <element>branch</element>
+    <scope_note>Branch selected from institution selector</scope_note>
+</dc-type>
+<dc-type>
+    <schema>dc</schema>
+    <element>subtype</element>
+    <scope_note>Sub-type selected from institution selector</scope_note>
+</dc-type>
+<dc-type>
+    <schema>dc</schema>
+    <element>display</element>
+    <scope_note>Human-readable display value from institution selector</scope_note>
+</dc-type>
+<dc-type>
+    <schema>dc</schema>
+    <element>combined</element>
+    <scope_note>Machine-readable stored value from institution selector</scope_note>
+</dc-type>
 
 </dspace-dc-types>

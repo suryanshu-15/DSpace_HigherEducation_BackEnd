@@ -52,125 +52,162 @@
              often used when depositing normal Items (i.e. Items which are not Entities). -->
         <form name="traditionalpageone">
 
-            <!-- <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>contributor</dc-element>
-                    <dc-qualifier>author</dc-qualifier>
-                    <repeatable>true</repeatable>
-                    <label>Section/Institution</label>
-                    <input-type value-pairs-name="department_type">dropdown</input-type>
-                    <hint>Give the respective Department Name</hint>
-                    <required>You must enter the specific department</required>
-                </field>
-            </row> -->
-            <!-- District -->
-<field>
-    <dc-schema>dc</dc-schema> 
-    <dc-element>coverage</dc-element>
-    <dc-qualifier>district</dc-qualifier>
-    <label>District</label>
-    <input-type>onebox</input-type>
-</field>
+    <!-- 1. Barcode Number | Mandatory: N | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>barcode</dc-element>
+            <repeatable>false</repeatable>
+            <label>Barcode Number</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Barcode Number</hint>
+        </field>
+    </row>
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>branch</dc-element>
+            <repeatable>false</repeatable>
+            <label>Branch</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Branch</hint>
+        </field>
+    </row>
+    <!-- 2. File Number | Mandatory: Y | Multiple: Y -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>filenumber</dc-element>
+            <repeatable>true</repeatable>
+            <label>File Number</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the File Number</hint>
+            <required>File Number is mandatory</required>
+        </field>
+    </row>
 
-<!-- College -->
-<field>
-    <dc-schema>dc</dc-schema>
-    <dc-element>relation</dc-element>
-    <dc-qualifier>college</dc-qualifier>
-    <label>College</label>
-    <input-type>onebox</input-type>
-</field>
+    <!-- 3. File Name | Mandatory: Y | Multiple: Y -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>file</dc-element>
+            <dc-qualifier>name</dc-qualifier>
+            <repeatable>true</repeatable>
+            <label>File Name</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the File Name</hint>
+            <required>File Name is mandatory</required>
+        </field>
+    </row>
 
-<!-- University -->
-<field>
-    <dc-schema>dc</dc-schema>
-    <dc-element>relation</dc-element>
-    <dc-qualifier>university</dc-qualifier>
-    <label>University</label>
-    <input-type>onebox</input-type>
-</field>
-            <!-- <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>title</dc-element>
-                    <dc-qualifier></dc-qualifier>
-                    <repeatable>false</repeatable>
-                    <label>Section</label>
-                    <input-type value-pairs-name="section_type">dropdown</input-type>
-                    <hint>Select the Section.</hint>
-                </field>
-            </row> -->
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>title</dc-element>
-                    <dc-qualifier>alternative</dc-qualifier>
-                    <repeatable>true</repeatable>
-                    <label>File Number</label>
-                    <input-type>onebox</input-type>
-                    <hint>Give the file number</hint>
-                    <required> You must give a file number</required>
-                </field>
-            </row>
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>publisher</dc-element>
-                    <repeatable>false</repeatable>
-                    <label>File Name</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the file name.</hint>
-                    <required>You must provide a file name</required>
-                </field>
-            </row>
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>date</dc-element>
-                    <dc-qualifier>issued</dc-qualifier>
-                    <repeatable>false</repeatable>
-                    <label>File Year</label>
-                    <input-type>date</input-type>
-                    <hint>Please give the date of the file is created.</hint>
-                </field>
-            </row>
-            <!-- case number -->
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>relation</dc-element>
-                    <dc-qualifier>ispartofseries</dc-qualifier>
-                    <repeatable>true</repeatable>
-                    <label>Case Number</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the unique case number</hint>
-                </field>
-            </row>
-            <!-- Respondent -->
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>identifier.citation</dc-element>
-                    <repeatable>false</repeatable>
-                    <label>Respondent</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the respondent name.</hint>
-                </field>
-            </row>
-            <row>
-                <field>
-                    <dc-schema>dc</dc-schema>
-                    <dc-element>identifier</dc-element>
-                    <repeatable>false</repeatable>
-                    <label>Petitioner</label>
-                    <input-type>onebox</input-type>
-                    <hint>Enter the petitioner name</hint>
-                    <required>petitioner name is mandatory</required>
-                </field>
-            </row>
+    <!-- 4. File Year | Mandatory: Y | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>file</dc-element>
+            <dc-qualifier>year</dc-qualifier>
+            <repeatable>false</repeatable>
+            <label>File Year</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the File Year (e.g. 2024)</hint>
+            <required>File Year is mandatory</required>
+        </field>
+    </row>
 
-        </form>
+    <!-- 5. Case Nature | Mandatory: N | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>case</dc-element>
+            <dc-qualifier>nature</dc-qualifier>
+            <repeatable>false</repeatable>
+            <label>Case Nature</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Nature of the Case</hint>
+        </field>
+    </row>
+
+    <!-- 6. Case Number | Mandatory: Y | Multiple: Y -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>case</dc-element>
+            <dc-qualifier>number</dc-qualifier>
+            <repeatable>true</repeatable>
+            <label>Case Number</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Case Number</hint>
+            <required>Case Number is mandatory</required>
+        </field>
+    </row>
+
+    <!-- 6.1 Subject Matter | Mandatory: Y | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>subject</dc-element>
+            <dc-qualifier>matter</dc-qualifier>
+            <repeatable>false</repeatable>
+            <label>Subject Matter</label>
+            <input-type>textarea</input-type>
+            <hint>Enter the Subject Matter</hint>
+            <required>Subject Matter is mandatory</required>
+        </field>
+    </row>
+
+    <!-- 6.2 Name of the Petitioner | Mandatory: N | Multiple: Y -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>petitioner</dc-element>
+            <repeatable>true</repeatable>
+            <label>Name of the Petitioner</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Name of the Petitioner</hint>
+        </field>
+    </row>
+
+    <!-- 6.3 Name of the District | Mandatory: N | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>district</dc-element>
+            <repeatable>false</repeatable>
+            <label>Name of the District</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Name of the District</hint>
+        </field>
+    </row>
+
+    <!-- 6.4 Name of the Institution | Mandatory: N | Multiple: N -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>institution</dc-element>
+            <repeatable>false</repeatable>
+            <label>Name of the Institution</label>
+        <input-type>onebox</input-type>
+            <hint>Enter the Name of the Institution</hint>
+        </field>
+    </row>
+
+    <!-- 6.5 Respondent Name | Mandatory: Y | Multiple: Y -->
+    <row>
+        <field>
+            <dc-schema>dc</dc-schema>
+            <dc-element>respondent</dc-element>
+            <repeatable>true</repeatable>
+            <label>Respondent Name</label>
+            <input-type>onebox</input-type>
+            <hint>Enter the Respondent Name</hint>
+            <required>Respondent Name is mandatory</required>
+        </field>
+    </row>
+
+    
+    
+
+</form>
 
         <!-- Form which defines the second page/section of the "traditional" DSpace submission process,
              often used when depositing normal Items. -->

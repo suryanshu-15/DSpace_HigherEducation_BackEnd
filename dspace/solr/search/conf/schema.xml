@@ -254,39 +254,71 @@
               <dynamicField name="attr_*" type="textgen" indexed="true" stored="true" multiValued="true" />
               <dynamicField name="random_*" type="random" />
 
-              
-              <!-- Department -->
-              <field name="dc.department" type="string" indexed="true" stored="true" multiValued="true"/>
 
-              <!-- Section -->
-              <field name="dc.section" type="string" indexed="true" stored="true" multiValued="true"/>
+              <!-- Barcode Number | Mandatory: N | Multiple: N -->
+              <field name="dc.barcode" type="string" indexed="true" stored="true" multiValued="false"/>
 
-              <!-- File Number -->
+              <!-- File Number | Mandatory: Y | Multiple: Y -->
               <field name="dc.filenumber" type="string" indexed="true" stored="true" multiValued="true"/>
 
-              <!-- File Year (Optional) -->
-              <field name="dc.fileyear" type="string" indexed="true" stored="true" multiValued="true"/>
+              <!-- File Name | Mandatory: Y | Multiple: Y -->
+              <field name="dc.file.name" type="text_general" indexed="true" stored="true" multiValued="true"/>
 
-              <!-- File Name -->
-              <field name="dc.filename" type="text_general" indexed="true" stored="true" multiValued="true"/>
+              <!-- File Year | Mandatory: Y | Multiple: N -->
+              <field name="dc.file.year" type="string" indexed="true" stored="true" multiValued="false"/>
 
-              <!-- Respondent (Optional) -->
+              <!-- Case Nature | Mandatory: N | Multiple: N -->
+              <field name="dc.case.nature" type="text_general" indexed="true" stored="true" multiValued="false"/>
+
+              <!-- Case Number | Mandatory: Y | Multiple: Y -->
+              <field name="dc.case.number" type="string" indexed="true" stored="true" multiValued="true"/>
+
+              <!-- Subject Matter | Mandatory: Y | Multiple: N -->
+              <field name="dc.subject.matter" type="text_general" indexed="true" stored="true" multiValued="false"/>
+
+              <!-- Petitioner | Mandatory: N | Multiple: Y -->
+              <field name="dc.petitioner" type="text_general" indexed="true" stored="true" multiValued="true"/>
+
+              <!-- District | Mandatory: N | Multiple: N -->
+              <field name="dc.district" type="string" indexed="true" stored="true" multiValued="false"/>
+
+              <!-- Institution | Mandatory: N | Multiple: N -->
+              <field name="dc.institution" type="string" indexed="true" stored="true" multiValued="false"/>
+
+              <!-- Respondent | Mandatory: Y | Multiple: Y -->
               <field name="dc.respondent" type="text_general" indexed="true" stored="true" multiValued="true"/>
+              <field name="dc.branch"    type="string"       indexed="true" stored="true" multiValued="false"/>
+              <field name="dc.subtype"   type="string"       indexed="true" stored="true" multiValued="false"/>
+              <field name="dc.display"   type="text_general" indexed="true" stored="true" multiValued="false"/>
+              <field name="dc.combined"  type="string"       indexed="true" stored="true" multiValued="false"/>
+              <!-- Add BOTH these fields to schema.xml alongside the other custom dc.* fields -->
 
-              <!-- Case Number (Optional) -->
-              <field name="dc.casenumber" type="string" indexed="true" stored="true" multiValued="true"/>
+<!-- Original-case branch field (for display/reference) -->
+<field name="dc.branch_keyword"
+       type="string"
+       indexed="true"
+       stored="true"
+       multiValued="true"/>
 
-              <!-- Logo (assumed to be a URL or reference) -->
-              <field name="dc.logo" type="string" indexed="false" stored="true" multiValued="true"/>
-
-
-
-<copyField source="dc.section" dest="dc_section"/>
-<copyField source="dc.filenumber" dest="dc_filenumber"/>
-<copyField source="dc.fileyear" dest="dc_fileyear"/>
-<copyField source="dc.fileName" dest="dc_filename"/>
-<copyField source="dc.respondent" dest="dc_respondent"/>
-<copyField source="dc.caseNo" dest="dc_case_number"/>
+<!-- Lowercased branch field — used by BranchSecuritySearchPlugin for
+     case-insensitive matching between eperson.branch and dc.branch -->
+<field name="dc.branch_lower"
+       type="string"
+       indexed="true"
+       stored="true"
+       multiValued="true"/>
+       <!-- =============================== -->
+              <!-- CopyFields for search_text      -->
+              <!-- =============================== -->
+              <copyField source="dc.filenumber"    dest="search_text"/>
+              <copyField source="dc.file.name"     dest="search_text"/>
+              <copyField source="dc.case.number"   dest="search_text"/>
+              <copyField source="dc.case.nature"   dest="search_text"/>
+              <copyField source="dc.subject.matter" dest="search_text"/>
+              <copyField source="dc.petitioner"    dest="search_text"/>
+              <copyField source="dc.respondent"    dest="search_text"/>
+              <copyField source="dc.district"      dest="search_text"/>
+              <copyField source="dc.institution"   dest="search_text"/>
 
        </fields>
        <uniqueKey>search.uniqueid</uniqueKey>
