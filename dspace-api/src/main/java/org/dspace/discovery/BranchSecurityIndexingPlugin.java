@@ -18,19 +18,25 @@ import org.dspace.discovery.indexobject.IndexableItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Solr indexing plugin that indexes the dc.branch metadata field on items.
+ * Solr indexing plugin that indexes dc.branch from each item into two fields:
  *
- * Indexes TWO fields per item:
- *   dc.branch_keyword  — original value (exact match)
- *   dc.branch_lower    — lowercased value (case-insensitive match)
+ *   dc.branch_keyword  — original value as stored  (e.g. "college")
+ *   dc.branch_lower    — lowercased value           (e.g. "college")
  *
- * The search plugin uses dc.branch_lower so that "College" and "college"
- * both match a user whose eperson.branch = "college".
+ * The search plugin (BranchSecuritySearchPlugin) uses dc.branch_lower
+ * for case-insensitive group-based filtering.
+ *
+ * IMPORTANT: dc.branch on items must store the branch SHORT CODE
+ * (e.g. "college", "field", "admin") — not the full label.
+ * This must match the branch codes configured in dspace.cfg:
+ *   diracai.branch.group.college = <UUID>
+ *   diracai.branch.group.field   = <UUID>
+ *   diracai.branch.group.admin   = <UUID>
  */
 public class BranchSecurityIndexingPlugin implements SolrServiceIndexPlugin {
 
     /** Original-case Solr field */
-    public static final String BRANCH_FIELD       = "dc.branch_keyword";
+    public static final String BRANCH_FIELD = "dc.branch_keyword";
 
     /** Lowercased Solr field — used by BranchSecuritySearchPlugin */
     public static final String BRANCH_FIELD_LOWER = "dc.branch_lower";
@@ -52,6 +58,7 @@ public class BranchSecurityIndexingPlugin implements SolrServiceIndexPlugin {
             return;
         }
 
+        // Read dc.branch from item metadata
         List<MetadataValue> branchValues = itemService.getMetadata(
             item, "dc", "branch", null, Item.ANY
         );
@@ -65,7 +72,6 @@ public class BranchSecurityIndexingPlugin implements SolrServiceIndexPlugin {
                 String original  = mv.getValue().trim();
                 String lowercase = original.toLowerCase();
 
-                // Index both — original for display/reference, lower for filtering
                 document.addField(BRANCH_FIELD,       original);
                 document.addField(BRANCH_FIELD_LOWER, lowercase);
             }

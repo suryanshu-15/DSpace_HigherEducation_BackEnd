@@ -3349,11 +3349,11 @@
         </property>
         <property name="type" value="text" />
     </bean>
-    <bean id="branchSecurityIndexingPlugin"
+   <bean id="branchSecurityIndexingPlugin"
       class="org.dspace.discovery.BranchSecurityIndexingPlugin"
-      scope="prototype" />
+      scope="singleton" />
 
-    <bean id="branchSecuritySearchPlugin"
+<bean id="branchSecuritySearchPlugin"
       class="org.dspace.discovery.BranchSecuritySearchPlugin"
-      scope="prototype" />
+      scope="singleton" />
 </beans>

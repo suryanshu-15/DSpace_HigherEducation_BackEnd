@@ -14,76 +14,104 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.dspace.authorize.service.AuthorizeService;
-import org.dspace.content.Item;
-import org.dspace.content.service.ItemService;
 import org.dspace.core.Context;
 import org.dspace.eperson.EPerson;
-import org.dspace.eperson.service.EPersonService;
+import org.dspace.eperson.Group;
+import org.dspace.eperson.service.GroupService;
+import org.dspace.services.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Solr search restriction plugin that enforces branch-based visibility.
+ * Solr search restriction plugin that enforces branch-based visibility using
+ * DSpace EPerson Groups.
  *
- * Rules:
- *   - Global admin → no filter, sees everything
- *   - EPerson with eperson.branch metadata set → sees only items where
- *     dc.branch_keyword matches their branch value
- *   - EPerson with NO branch metadata → sees only items with no dc.branch set
- *     (i.e. public items), plus items they personally submitted
+ * Each branch has a dedicated DSpace group. The group UUID is mapped to a
+ * branch code in dspace.cfg:
  *
- * Place this bean AFTER solrServiceResourceIndexPlugin in spring config
- * so that the standard READ-policy filter fires first.
+ * diracai.branch.group.college = <UUID>
+ * diracai.branch.group.field = <UUID>
+ * diracai.branch.group.admin = <UUID>
+ *
+ * At search time: - Admin user → no filter, sees everything - User in College
+ * group → filter: dc.branch_lower:"college" - User in Field group → filter:
+ * dc.branch_lower:"field" - User in no branch group → no filter (resource
+ * policies apply)
  */
 public class BranchSecuritySearchPlugin implements SolrServiceSearchPlugin {
 
     private static final Logger log = LogManager.getLogger(BranchSecuritySearchPlugin.class);
 
-    private static final String BRANCH_FIELD = "dc.branch_keyword";
-    private static final String EPERSON_BRANCH_SCHEMA   = "eperson";
-    private static final String EPERSON_BRANCH_ELEMENT  = "branch";
-    private static final String EPERSON_BRANCH_QUALIFIER = null;
+    /**
+     * Prefix used to look up branch group mappings in dspace.cfg. Full key
+     * format: diracai.branch.group.<branchCode>
+     * Example: diracai.branch.group.college = <UUID>
+     */
+    private static final String CONFIG_PREFIX = "diracai.branch.group.";
+
+    /**
+     * Solr field indexed by BranchSecurityIndexingPlugin (lowercased). Used for
+     * case-insensitive filtering.
+     */
+    private static final String BRANCH_FIELD_LOWER = BranchSecurityIndexingPlugin.BRANCH_FIELD_LOWER;
+
+    /**
+     * All possible branch codes — must match keys in dspace.cfg. Add more here
+     * if new branches are added.
+     */
+    private static final String[] BRANCH_CODES = {
+        "college",
+        "field",
+        "admin",
+        "university"
+    };
 
     @Autowired
     private AuthorizeService authorizeService;
 
     @Autowired
-    private EPersonService ePersonService;
+    private GroupService groupService;
 
     @Autowired
-    private ItemService itemService;
+    private ConfigurationService configurationService;
 
     @Override
     public void additionalSearchParameters(Context context,
-                                           DiscoverQuery discoveryQuery,
-                                           SolrQuery solrQuery) {
+            DiscoverQuery discoveryQuery,
+            SolrQuery solrQuery) {
+        log.info("########## BranchSecuritySearchPlugin CALLED ##########");
+
         try {
             // ── 1. Global admins see everything ───────────────────────────
             if (authorizeService.isAdmin(context)) {
+                log.debug("BranchSecuritySearchPlugin: admin user — no filter applied");
                 return;
             }
 
             EPerson currentUser = context.getCurrentUser();
             if (currentUser == null) {
-                // Anonymous users — no branch filter needed (READ policies handle access)
+                log.debug("BranchSecuritySearchPlugin: anonymous user — no filter applied");
                 return;
             }
 
-            // ── 2. Read the user's branch from EPerson metadata ───────────
-            String userBranch = getUserBranch(context, currentUser);
+            // ── 2. Find which branch group this user belongs to ───────────
+            String userBranchCode = resolveBranchCodeForUser(context, currentUser);
 
-            if (StringUtils.isNotBlank(userBranch)) {
-                // ── 3a. User has a branch → restrict to items of that branch ──
-                // Escape special Solr characters in branch value
-                String escapedBranch = escapeForSolr(userBranch);
-                String branchFilter = BRANCH_FIELD + ":\"" + escapedBranch + "\"";
+            if (StringUtils.isNotBlank(userBranchCode)) {
+                // ── 3. Inject Solr filter for this branch ─────────────────
+                String escaped = userBranchCode.trim().toLowerCase()
+                        .replace("\"", "\\\"");
+                String branchFilter = BRANCH_FIELD_LOWER + ":\"" + escaped + "\"";
                 solrQuery.addFilterQuery(branchFilter);
 
-                log.debug("BranchSecuritySearchPlugin: applied branch filter [{}] for user [{}]",
-                    branchFilter, currentUser.getEmail());
+                log.info("BranchSecuritySearchPlugin: user=[{}] group-branch=[{}] filter=[{}]",
+                        currentUser.getEmail(), userBranchCode, branchFilter);
+            } else {
+                // User is not in any branch group — no branch filter applied.
+                // Standard resource policies still control what they can see.
+                log.warn("BranchSecuritySearchPlugin: user=[{}] is not in any branch group "
+                        + "— no branch filter applied",
+                        currentUser.getEmail());
             }
-            // If user has NO branch, no additional filter is applied —
-            // the standard resource policy filter (solrServiceResourceIndexPlugin)
-            // already handles visibility correctly.
 
         } catch (SQLException e) {
             log.error("BranchSecuritySearchPlugin: SQL error applying branch filter", e);
@@ -91,36 +119,43 @@ public class BranchSecuritySearchPlugin implements SolrServiceSearchPlugin {
     }
 
     /**
-     * Read the eperson.branch metadata value from the given EPerson.
+     * Iterates over all configured branch codes, looks up each group UUID from
+     * dspace.cfg, and checks if the current user is a member.
      *
-     * @param context     DSpace context
-     * @param ePerson     the current user
-     * @return branch value, or null/blank if not set
+     * Returns the first matching branch code, or null if user is in no branch
+     * group.
+     *
+     * @param context DSpace context
+     * @param currentUser the logged-in EPerson
+     * @return branch code string (e.g. "college") or null
      */
-    private String getUserBranch(Context context, EPerson ePerson) {
-        try {
-            // EPersonService extends DSpaceObjectServiceImpl which stores metadata
-            // on the EPerson object itself — retrieve via getMetadataFirstValue
-            String branch = ePersonService.getMetadataFirstValue(
-                ePerson,
-                EPERSON_BRANCH_SCHEMA,
-                EPERSON_BRANCH_ELEMENT,
-                EPERSON_BRANCH_QUALIFIER,
-                Item.ANY
-            );
-            return branch;
-        } catch (Exception e) {
-            log.warn("BranchSecuritySearchPlugin: could not read branch metadata for user [{}]: {}",
-                ePerson.getEmail(), e.getMessage());
-            return null;
-        }
-    }
+    private String resolveBranchCodeForUser(Context context,
+            EPerson currentUser) throws SQLException {
 
-    /**
-     * Minimal Solr special-character escaping for filter query values.
-     * Wrapping in quotes handles most cases; this escapes embedded quotes.
-     */
-    private String escapeForSolr(String value) {
-        return value.replace("\"", "\\\"");
+        for (String branchCode : BRANCH_CODES) {
+
+            String configKey = CONFIG_PREFIX + branchCode;
+            String groupName = configurationService.getProperty(configKey);
+
+            if (StringUtils.isBlank(groupName)) {
+                log.debug("No config found for key [{}]", configKey);
+                continue;
+            }
+
+            Group branchGroup = groupService.findByName(context, groupName.trim());
+
+            if (branchGroup == null) {
+                log.warn("Group not found for name [{}] (key={})", groupName, configKey);
+                continue;
+            }
+
+            if (groupService.isMember(context, currentUser, branchGroup)) {
+                log.debug("User [{}] belongs to group [{}]",
+                        currentUser.getEmail(), groupName);
+                return branchCode;
+            }
+        }
+
+        return null;
     }
 }

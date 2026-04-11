@@ -273,8 +273,8 @@
               <!-- Case Number | Mandatory: Y | Multiple: Y -->
               <field name="dc.case.number" type="string" indexed="true" stored="true" multiValued="true"/>
 
-              <!-- Subject Matter | Mandatory: Y | Multiple: N -->
-              <field name="dc.subject.matter" type="text_general" indexed="true" stored="true" multiValued="false"/>
+              <!-- Case Matter | Mandatory: Y | Multiple: N -->
+              <field name="dc.case.matter" type="text_general" indexed="true" stored="true" multiValued="false"/>
 
               <!-- Petitioner | Mandatory: N | Multiple: Y -->
               <field name="dc.petitioner" type="text_general" indexed="true" stored="true" multiValued="true"/>
@@ -293,21 +293,11 @@
               <field name="dc.combined"  type="string"       indexed="true" stored="true" multiValued="false"/>
               <!-- Add BOTH these fields to schema.xml alongside the other custom dc.* fields -->
 
-<!-- Original-case branch field (for display/reference) -->
-<field name="dc.branch_keyword"
-       type="string"
-       indexed="true"
-       stored="true"
-       multiValued="true"/>
+<field name="dc.branch_keyword" type="string"
+       indexed="true" stored="true" multiValued="true"/>
 
-<!-- Lowercased branch field — used by BranchSecuritySearchPlugin for
-     case-insensitive matching between eperson.branch and dc.branch -->
-<field name="dc.branch_lower"
-       type="string"
-       indexed="true"
-       stored="true"
-       multiValued="true"/>
-       <!-- =============================== -->
+<field name="dc.branch_lower" type="string"
+       indexed="true" stored="true" multiValued="true"/>       <!-- =============================== -->
               <!-- CopyFields for search_text      -->
               <!-- =============================== -->
               <copyField source="dc.filenumber"    dest="search_text"/>
