@@ -9,6 +9,7 @@ SELECT * FROM (
     (1, 'case', 'number', 'Case Number'),
     (1, 'case', 'status', 'Status of the case (e.g., pending, approved, rejected)'),
     (1, 'case', 'matter', 'Case Matter'),
+    (1, 'case', 'type', 'Case Type'),
     (1, 'petitioner', NULL, 'Name of the Petitioner'),
     (1, 'respondent', NULL, 'Respondent Name'),
     (1, 'district', NULL, 'Name of the District'),

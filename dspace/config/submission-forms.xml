@@ -147,9 +147,8 @@
                     <dc-element>case</dc-element>
                     <dc-qualifier>status</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Case Status</label>
-                    <input-type>onebox</input-type>
-                    <hint>Select Yes or No</hint>
+                    <label>Whether Case matters or not</label>
+                    <input-type value-pairs-name="yes_no">dropdown</input-type>
                     <required>Case Status is mandatory</required>
                 </field>
             </row>
@@ -181,14 +180,25 @@
                 </field>
             </row>
 
-            <!-- 6.1 Subject Matter | Mandatory: Y | Multiple: N -->
+            <!-- 6. Case Type | Mandatory: N | Multiple: N -->
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>case</dc-element>
+                    <dc-qualifier>type</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Case Type</label>
+                    <input-type value-pairs-name="case_type_pairs">dropdown</input-type>
+                    <hint>Select the Case Type</hint>
+                </field>
+            </row>
             <row>
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>case</dc-element>
                     <dc-qualifier>matter</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Case Matter</label>
+                    <label>Subject/Case Matter</label>
                     <input-type>textarea</input-type>
                     <hint>Enter the Case Matter</hint>
                     <required>Case Matter is mandatory</required>
@@ -200,9 +210,9 @@
                     <dc-schema>dc</dc-schema>
                     <dc-element>comment</dc-element>
                     <repeatable>false</repeatable>
-                    <label>Case Comment</label>
+                    <label>Case Description</label>
                     <input-type>onebox</input-type>
-                    <hint>Enter the Case Comment</hint>
+                    <hint>Enter the Case Description</hint>
                 </field>
             </row>
 
@@ -2211,43 +2221,114 @@
             </pair>
         </value-pairs>
 
+        <value-pairs value-pairs-name="yes_no" dc-term="type">
+            <pair>
+                <displayed-value>Yes</displayed-value>
+                <stored-value>yes</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>No</displayed-value>
+                <stored-value>no</stored-value>
+            </pair>
+        </value-pairs>
+
+        <value-pairs value-pairs-name="case_type_pairs" dc-term="type">
+            <pair>
+                <displayed-value>CONTC Contempt of Court Cases</displayed-value>
+                <stored-value>CONTC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>CP Complaint Petition</displayed-value>
+                <stored-value>CP</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>EC Execution Case</displayed-value>
+                <stored-value>EC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>FAO First Appeal from Orders</displayed-value>
+                <stored-value>FAO</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>GIA Grant in Aided Case</displayed-value>
+                <stored-value>GIA</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>IA Interlocutory Appeal</displayed-value>
+                <stored-value>IA</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>MP Miscellaneous Petition</displayed-value>
+                <stored-value>MP</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>OJC Original Jurisdiction Case (Writ)</displayed-value>
+                <stored-value>OJC</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>RVWPET Review Petition</displayed-value>
+                <stored-value>RVWPET</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>SLP(C) Special Leave Petition (Civil)</displayed-value>
+                <stored-value>SLP(C)</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>WA Writ Appeals before DB against SB Judgement</displayed-value>
+                <stored-value>WA</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>WP(C) Writ Petition under Art. 226 and 227</displayed-value>
+                <stored-value>WP(C)</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>WPC(OA) Original Application in Bhubaneswar Bench</displayed-value>
+                <stored-value>WPC(OA)</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>Other</displayed-value>
+                <stored-value>OTHER</stored-value>
+            </pair>
+        </value-pairs>
+
         <value-pairs value-pairs-name="section_type" dc-term="type">
 
-    <pair><displayed-value>Office of Minister</displayed-value><stored-value>OM</stored-value></pair>
-    <pair><displayed-value>Office of Secretary</displayed-value><stored-value>OS</stored-value></pair>
-    <pair><displayed-value>Office of Special Secretary</displayed-value><stored-value>OSS</stored-value></pair>
-    <pair><displayed-value>Office of Additional Secretary</displayed-value><stored-value>OAS</stored-value></pair>
+            <pair>
+                <displayed-value>Office of Minister</displayed-value><stored-value>OM</stored-value></pair>
+            <pair><displayed-value>Office of Secretary</displayed-value><stored-value>OS</stored-value></pair>
+            <pair><displayed-value>Office of Special Secretary</displayed-value><stored-value>OSS</stored-value></pair>
+            <pair><displayed-value>Office of Additional Secretary</displayed-value><stored-value>OAS</stored-value></pair>
 
-    <pair><displayed-value>Accounts-I</displayed-value><stored-value>ACC1</stored-value></pair>
-    <pair><displayed-value>Accounts-II</displayed-value><stored-value>ACC2</stored-value></pair>
-    <pair><displayed-value>Audit</displayed-value><stored-value>AUD</stored-value></pair>
-    <pair><displayed-value>Budget &amp; Finance</displayed-value><stored-value>BF</stored-value></pair>
+            <pair><displayed-value>Accounts-I</displayed-value><stored-value>ACC1</stored-value></pair>
+            <pair><displayed-value>Accounts-II</displayed-value><stored-value>ACC2</stored-value></pair>
+            <pair><displayed-value>Audit</displayed-value><stored-value>AUD</stored-value></pair>
+            <pair><displayed-value>Budget &amp; Finance</displayed-value><stored-value>BF</stored-value></pair>
 
-    <pair><displayed-value>Communication &amp; PR Cell</displayed-value><stored-value>CPR</stored-value></pair>
-    <pair><displayed-value>Diary</displayed-value><stored-value>DRY</stored-value></pair>
-    <pair><displayed-value>Edu-Invest Cell</displayed-value><stored-value>EIC</stored-value></pair>
-    <pair><displayed-value>Engineering Cell</displayed-value><stored-value>ENG</stored-value></pair>
+            <pair><displayed-value>Communication &amp; PR Cell</displayed-value><stored-value>CPR</stored-value></pair>
+            <pair><displayed-value>Diary</displayed-value><stored-value>DRY</stored-value></pair>
+            <pair><displayed-value>Edu-Invest Cell</displayed-value><stored-value>EIC</stored-value></pair>
+            <pair><displayed-value>Engineering Cell</displayed-value><stored-value>ENG</stored-value></pair>
 
-    <pair><displayed-value>Government College Establishment (Teaching)</displayed-value><stored-value>GCET</stored-value></pair>
-    <pair><displayed-value>Government College Establishment (Non-Teaching)</displayed-value><stored-value>GCENT</stored-value></pair>
+            <pair><displayed-value>Government College Establishment (Teaching)</displayed-value><stored-value>GCET</stored-value></pair>
+            <pair><displayed-value>Government College Establishment (Non-Teaching)</displayed-value><stored-value>GCENT</stored-value></pair>
 
-    <pair><displayed-value>Grant-in-Aid-I</displayed-value><stored-value>GIA1</stored-value></pair>
-    <pair><displayed-value>Grant-in-Aid-II</displayed-value><stored-value>GIA2</stored-value></pair>
-    <pair><displayed-value>Grant-in-Aid-III</displayed-value><stored-value>GIA3</stored-value></pair>
+            <pair><displayed-value>Grant-in-Aid-I</displayed-value><stored-value>GIA1</stored-value></pair>
+            <pair><displayed-value>Grant-in-Aid-II</displayed-value><stored-value>GIA2</stored-value></pair>
+            <pair><displayed-value>Grant-in-Aid-III</displayed-value><stored-value>GIA3</stored-value></pair>
 
-    <pair><displayed-value>Information Technology</displayed-value><stored-value>IT</stored-value></pair>
-    <pair><displayed-value>Legal</displayed-value><stored-value>LEGAL</stored-value></pair>
-    <pair><displayed-value>NCC</displayed-value><stored-value>NCC</stored-value></pair>
-    <pair><displayed-value>NSS</displayed-value><stored-value>NSS</stored-value></pair>
-    <pair><displayed-value>NEP Cell</displayed-value><stored-value>NEP</stored-value></pair>
+            <pair><displayed-value>Information Technology</displayed-value><stored-value>IT</stored-value></pair>
+            <pair><displayed-value>Legal</displayed-value><stored-value>LEGAL</stored-value></pair>
+            <pair><displayed-value>NCC</displayed-value><stored-value>NCC</stored-value></pair>
+            <pair><displayed-value>NSS</displayed-value><stored-value>NSS</stored-value></pair>
+            <pair><displayed-value>NEP Cell</displayed-value><stored-value>NEP</stored-value></pair>
 
-    <pair><displayed-value>Scholarship &amp; Loan</displayed-value><stored-value>SCH</stored-value></pair>
-    <pair><displayed-value>Teacher Education &amp; Training</displayed-value><stored-value>TET</stored-value></pair>
+            <pair><displayed-value>Scholarship &amp; Loan</displayed-value><stored-value>SCH</stored-value></pair>
+            <pair><displayed-value>Teacher Education &amp; Training</displayed-value><stored-value>TET</stored-value></pair>
 
-    <pair><displayed-value>University Establishment</displayed-value><stored-value>UE</stored-value></pair>
-    <pair><displayed-value>University Non-Establishment</displayed-value><stored-value>UNE</stored-value></pair>
+            <pair><displayed-value>University Establishment</displayed-value><stored-value>UE</stored-value></pair>
+            <pair><displayed-value>University Non-Establishment</displayed-value><stored-value>UNE</stored-value></pair>
 
-</value-pairs>
+        </value-pairs>
 
 <value-pairs value-pairs-name="college_type" dc-term="type">
 
