@@ -211,7 +211,7 @@
                     <dc-element>comment</dc-element>
                     <repeatable>false</repeatable>
                     <label>Case Description</label>
-                    <input-type>onebox</input-type>
+                    <input-type>textarea</input-type>
                     <hint>Enter the Case Description</hint>
                 </field>
             </row>
@@ -226,6 +226,29 @@
                     <label>Name of the Petitioner</label>
                     <input-type>onebox</input-type>
                     <hint>Enter the Name of the Petitioner</hint>
+                </field>
+            </row>
+
+             <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>case</dc-element>
+                    <dc-qualifier>district</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>District</label>
+                    <input-type>onebox</input-type>
+                    <hint>Enter the District</hint>
+                </field>
+            </row>
+             <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>case</dc-element>
+                    <dc-qualifier>institution</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Institution</label>
+                    <input-type>onebox</input-type>
+                    <hint>Enter the Institution</hint>
                 </field>
             </row>
 

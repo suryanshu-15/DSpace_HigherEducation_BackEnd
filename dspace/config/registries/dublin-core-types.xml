@@ -756,5 +756,17 @@
         <qualifier>status</qualifier>
         <scope_note>Current status of the case</scope_note>
     </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>case</element>
+        <qualifier>district</qualifier>
+        <scope_note>Current district of the case</scope_note>
+    </dc-type>
+    <dc-type>
+        <schema>dc</schema>
+        <element>case</element>
+        <qualifier>institution</qualifier>
+        <scope_note>Current institution of the case</scope_note>
+    </dc-type>
 
 </dspace-dc-types>
