@@ -35,16 +35,28 @@ public class HedInstitutionController {
 
     @GetMapping("/subtypes")
     public ResponseEntity<List<Map<String, Object>>> getSubTypes(
-            @RequestParam String branch) {
+            @RequestParam(name = "branch", required = false) String branch,
+            @RequestParam(name = "parent", required = false) String parent) {
 
-        String sql = """
+        StringBuilder sql = new StringBuilder("""
             SELECT code, label, group_name, has_children, display_order
             FROM hed_section_type
-            WHERE branch_code = ?
-              AND active = true
-            ORDER BY display_order
-            """;
-        return ResponseEntity.ok(jdbc.queryForList(sql, branch));
+            WHERE active = true
+            """);
+
+        java.util.List<Object> params = new java.util.ArrayList<>();
+
+        if (parent != null && !parent.isBlank()) {
+            sql.append(" AND parent_code = ? ");
+            params.add(parent);
+        } else if (branch != null && !branch.isBlank()) {
+            sql.append(" AND branch_code = ? AND parent_code IS NULL ");
+            params.add(branch);
+        }
+
+        sql.append(" ORDER BY display_order");
+
+        return ResponseEntity.ok(jdbc.queryForList(sql.toString(), params.toArray()));
     }
 
     // ── GET /api/hed/districts ─────────────────────────────────────────────
@@ -73,15 +85,58 @@ public class HedInstitutionController {
             @RequestParam(name = "q",         required = false) String query,
             @RequestParam(name = "limit",     defaultValue = "30") int limit) {
 
+        // Strip RDE prefix to map back to default institution sub_type_codes
+        String finalSubType = subType;
+        if (subType.matches("RDE_[A-Z]{3}_NGC_488")) {
+            finalSubType = "NGC_488";
+        } else if (subType.matches("RDE_[A-Z]{3}_NGC_662")) {
+            finalSubType = "NGC_662";
+        } else if (subType.matches("RDE_[A-Z]{3}_GC")) {
+            finalSubType = "GC";
+        } else if (subType.matches("RDE_[A-Z]{3}_SC")) {
+            finalSubType = "SC";
+        } else if (subType.matches("RDE_[A-Z]{3}_PVT")) {
+            finalSubType = "PVT";
+        }
+
         StringBuilder sql = new StringBuilder("""
             SELECT id, code, name, district_code, annexure
             FROM hed_institution
-            WHERE sub_type_code = ?
-              AND active = true
+            WHERE active = true
             """);
 
         java.util.List<Object> params = new java.util.ArrayList<>();
-        params.add(subType);
+
+        // If NGC is explicitly clicked from the College branch, retrieve both types
+        if (finalSubType.equals("NGC")) {
+            sql.append(" AND sub_type_code IN ('NGC_488', 'NGC_662') ");
+        } else {
+            sql.append(" AND sub_type_code = ? ");
+            params.add(finalSubType);
+        }
+
+        java.util.List<String> rdeDistricts = new java.util.ArrayList<>();
+        if (subType.startsWith("RDE_BBS")) {
+            rdeDistricts = java.util.Arrays.asList("ANGUL", "CUTTACK", "DHENKANAL", "JAJPUR", "KHURDA", "NAYAGARH", "PURI", "JAGATSINGHPUR", "KENDRAPARA");
+        } else if (subType.startsWith("RDE_BAL")) {
+            rdeDistricts = java.util.Arrays.asList("BALASORE", "KEONJHAR", "MAYURBHANJ", "BHADRAK");
+        } else if (subType.startsWith("RDE_BER")) {
+            rdeDistricts = java.util.Arrays.asList("BOUDH", "GAJAPATI", "GANJAM", "KANDHAMAL");
+        } else if (subType.startsWith("RDE_SBP")) {
+            rdeDistricts = java.util.Arrays.asList("BARGARH", "BALANGIR", "DEOGARH", "KALAHANDI", "NUAPADA", "SAMBALPUR", "SUBARNAPUR", "SUNDARGARH", "JHARSUGUDA");
+        } else if (subType.startsWith("RDE_JEY")) {
+            rdeDistricts = java.util.Arrays.asList("KORAPUT", "MALKANGIRI", "NABARANGPUR", "RAYAGADA");
+        }
+
+        if (!rdeDistricts.isEmpty()) {
+            sql.append(" AND district_code IN (");
+            for (int i = 0; i < rdeDistricts.size(); i++) {
+                sql.append("?");
+                if (i < rdeDistricts.size() - 1) sql.append(",");
+            }
+            sql.append(") ");
+            params.addAll(rdeDistricts);
+        }
 
         if (district != null && !district.isBlank()) {
             sql.append(" AND district_code = ? ");
